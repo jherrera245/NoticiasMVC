@@ -1,0 +1,99 @@
+﻿@model IEnumerable<NoticiasMVC.Models.Categorias>
+
+@{
+    ViewData["Title"] = "Lista de Categorias";
+}
+
+<div class="row">
+    <div class="col-12 mt-3">
+        <h4>
+            @ViewData["Title"]
+            <a class="btn btn-primary" asp-controller="Categorias" asp-action="Create">
+                <i class="fa fa-pen"></i> Agregar
+            </a>
+        </h4>
+    </div>
+
+    <!--card categorias-->
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header text-primary">
+                <i class="fa-solid fa-database"></i> Lista de Registros
+            </div>
+
+            <div class="card-body">
+                @if (Model.Count() > 0)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Imagen</th>
+                                <th>Descripción</th>
+                                <th colspan="2">Opciones</th>
+                            </tr>
+                            @foreach (var categoria in Model)
+                            {
+                                <tr>
+                                    <td>@categoria.IdCategoria</td>
+                                    <td>@categoria.NombreCategoria</td>
+                                    <td>
+                                        <img class="img-thumbnail" width="200px"
+                                             src="@WebConst.CategoriasPath/@categoria.ImagenCategoria">
+                                    </td>
+                                    <td>@Html.Raw(categoria.DescripcionCategoria)</td>
+                                    <td>
+                                        <a class="btn btn-primary" asp-controller="Categorias"
+                                           asp-action="Edit" asp-route-Id="@categoria.IdCategoria">
+                                            <i class="fa fa-edit"></i> Editar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" onclick="deleteCategoria(@categoria.IdCategoria);">
+                                            <i class="fa fa-trash"></i> Eliminar
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                }else
+                {
+                    <div class="alert alert-primary">
+                        No existen registros actuales de categorías
+                    </div>    
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const deleteCategoria = (Id) => {
+            Swal.fire({
+                title: 'Quieres borrar esta categoria?',
+                text: "Una vez borrada no podras recurperarla",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'Tu registro fue eliminado correctamente.',
+                        'success'
+                    )
+                    //espera para recargar la pagina
+                    setTimeout(() => {
+                        location.href = "/Categorias/Delete/" + Id
+                    }, 500);
+                }
+            })
+        }
+    </script>
+}

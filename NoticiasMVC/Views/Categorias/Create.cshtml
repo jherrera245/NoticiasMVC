@@ -1,0 +1,80 @@
+﻿@model NoticiasMVC.Models.Categorias
+
+@{
+    ViewData["Title"] = "Crear Categorias";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h4>@ViewData["Title"]</h4>
+    </div>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-edit"></i> Registro de Categorias
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <label class="form-label" asp-for="NombreCategoria"></label>
+                            <input asp-for="NombreCategoria" class="form-control"
+                            placeholder="Ingresa el nombre de la categoria"/>
+                            <span class="text-danger" asp-validation-for="NombreCategoria"></span>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label class="form-label" asp-for="ImagenCategoria"></label>
+                            <input type="file" name="files" id="uploadBox" class="form-control" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" asp-for="DescripcionCategoria"></label>
+                            <textarea asp-for="DescripcionCategoria" class="form-control summernote" rows="5"></textarea>
+                            <span class="text-danger" asp-validation-for="DescripcionCategoria"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit" onclick="return validateInput()">
+                        <i class="fa fa-edit"></i> Agregar
+                    </button>
+
+                    <a class="btn btn-danger" type="button" asp-action="Index">
+                        <i class="fa fa-rotate-back"></i> Cancelar
+                    </a>
+                </div> 
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    'Error',
+                    'Se debe de adjuntar una imagen',
+                    'error'
+                )
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250,
+                lang: 'es-ES'
+            });
+        });
+    </script>
+}

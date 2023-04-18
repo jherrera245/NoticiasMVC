@@ -17,6 +17,6 @@ namespace NoticiasMVC.Models
         public string DescripcionCategoria { get; set;}
 
         [DisplayName("Imagen")]
-        public string ImagenCategoria { get; set;}
+        public string? ImagenCategoria { get; set; }
     }
 }
