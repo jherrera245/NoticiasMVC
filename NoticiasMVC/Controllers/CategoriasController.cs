@@ -24,9 +24,9 @@ namespace NoticiasMVC.Controllers
         //ruta -> Views/Categorias/Index
         public IActionResult Index()
         {
-            //este objeto contine las categorias
+            //este objeto contine las Categorias
             IEnumerable<Categorias> ListaCategorias = _context.Categorias;
-            //pasamos el objeto ListaCategoria a la vista
+            //pasamos el objeto ListaNoticia a la vista
             return View(ListaCategorias);
         }
 

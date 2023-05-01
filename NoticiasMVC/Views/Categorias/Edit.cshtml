@@ -17,7 +17,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-edit"></i> Registro de Categorias
+                    <i class="fa fa-edit"></i> Editar de Categorias
                 </div>
 
                 <div class="card-body">
@@ -36,7 +36,7 @@
 
                         <div class="col-lg-6 col-sm-12">
                             <label class="form-label" asp-for="DescripcionCategoria"></label>
-                            <textarea asp-for="DescripcionCategoria" class="form-control summernote" rows="5"></textarea>
+                            <textarea asp-for="DescripcionCategoria" class="form-control" id="descripcion" rows="5"></textarea>
                             <span class="text-danger" asp-validation-for="NombreCategoria"></span>
                         </div>
 
@@ -79,11 +79,16 @@
     </script>
 
     <script>
-        $(document).ready(function () {
-            $('.summernote').summernote({
-                height: 250,
-                lang: 'es-ES'
-            });
+        tinymce.init({
+            selector: '#descripcion',
+            plugins: [
+                'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+                'alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
         });
     </script>
 }

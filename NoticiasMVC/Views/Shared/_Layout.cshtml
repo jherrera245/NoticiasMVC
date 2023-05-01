@@ -10,8 +10,9 @@
 
     <!--agregando librerias-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
-    <!-- agregando summernote css/js -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" />
+
+    <!--TinyMCE-->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
     <header>
@@ -41,6 +42,18 @@
                                 <i class="fa fa-list"></i> Categorias
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Clasificaciones" asp-action="Index">
+                                <i class="fa fa-globe"></i> Clasificaciones
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Noticias" asp-action="Index">
+                                <i class="fa fa-newspaper"></i> Noticias
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -61,8 +74,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <!--Agregando scripts-->
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

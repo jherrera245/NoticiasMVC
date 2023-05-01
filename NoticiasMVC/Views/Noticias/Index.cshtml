@@ -1,20 +1,20 @@
-﻿@model IEnumerable<NoticiasMVC.Models.Categorias>
+﻿@model IEnumerable<NoticiasMVC.Models.Noticias>
 
 @{
-    ViewData["Title"] = "Lista de Categorías";
+    ViewData["Title"] = "Lista de Noticias";
 }
 
 <div class="row">
     <div class="col-12 mt-3">
         <h4>
             @ViewData["Title"]
-            <a class="btn btn-primary" asp-controller="Categorias" asp-action="Create">
+            <a class="btn btn-primary" asp-controller="Noticias" asp-action="Create">
                 <i class="fa fa-pen"></i> Agregar
             </a>
         </h4>
     </div>
 
-    <!--card categorias-->
+    <!--card Noticias-->
     <div class="col-12">
         <div class="card shadow-sm">
             <div class="card-header text-primary">
@@ -28,29 +28,31 @@
                         <table class="table table-bordered table-striped table-hover">
                             <tr>
                                 <th>Id</th>
-                                <th>Nombre</th>
+                                <th>Titular</th>
                                 <th>Imagen</th>
-                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Clasificación</th>
                                 <th colspan="2">Opciones</th>
                             </tr>
-                            @foreach (var categoria in Model)
+                            @foreach (var Noticia in Model)
                             {
                                 <tr>
-                                    <td>@categoria.IdCategoria</td>
-                                    <td>@categoria.NombreCategoria</td>
+                                    <td>@Noticia.IdNoticia</td>
+                                    <td>@Noticia.TituloNoticia</td>
                                     <td>
                                         <img class="img-thumbnail" width="200px"
-                                             src="@WebConst.CategoriasPath/@categoria.ImagenCategoria">
+                                             src="@WebConst.NoticiasPath/@Noticia.ImagenNoticia">
                                     </td>
-                                    <td>@Html.Raw(categoria.DescripcionCategoria)</td>
+                                    <td>@Noticia.Categoria.NombreCategoria</td>
+                                    <td>@Noticia.Clasificacion.NombreClasificacion</td>
                                     <td>
-                                        <a class="btn btn-primary" asp-controller="Categorias"
-                                           asp-action="Edit" asp-route-Id="@categoria.IdCategoria">
+                                        <a class="btn btn-primary" asp-controller="Noticias"
+                                   asp-action="Edit" asp-route-Id="@Noticia.IdNoticia">
                                             <i class="fa fa-edit"></i> Editar
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" onclick="deleteCategoria(@categoria.IdCategoria);">
+                                        <a class="btn btn-danger" onclick="deleteNoticia(@Noticia.IdNoticia);">
                                             <i class="fa fa-trash"></i> Eliminar
                                         </a>
                                     </td>
@@ -58,11 +60,12 @@
                             }
                         </table>
                     </div>
-                }else
+                }
+                else
                 {
                     <div class="alert alert-primary">
-                        No existen registros actuales de categorías
-                    </div>    
+                        No existen registros actuales de Noticias
+                    </div>
                 }
             </div>
         </div>
@@ -72,9 +75,9 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
     <script>
-        const deleteCategoria = (Id) => {
+        const deleteNoticia = (Id) => {
             Swal.fire({
-                title: 'Quieres borrar esta categoria?',
+                title: 'Quieres borrar esta Noticia?',
                 text: "Una vez borrada no podras recurperarla",
                 icon: 'warning',
                 showCancelButton: true,
@@ -90,7 +93,7 @@
                     )
                     //espera para recargar la pagina
                     setTimeout(() => {
-                        location.href = "/Categorias/Delete/" + Id
+                        location.href = "/Noticias/Delete/" + Id
                     }, 500);
                 }
             })

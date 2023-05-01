@@ -18,26 +18,24 @@ namespace NoticiasMVC.Models
         public string DescripcionNoticia { get; set; }
 
         [DisplayName("Imagen")]
-        public string ImagenNoticia { get; set; }
+        public string? ImagenNoticia { get; set; }
 
         [DisplayName("Categoría")]
         public int IdCategoria { get; set; }
 
         //agregando relaciones entre tablas noticias -> categorias
         [ForeignKey("IdCategoria")]
-        public virtual Categorias Categoria { get; set; }
+        public virtual Categorias? Categoria { get; set; }
 
         [DisplayName("Clasificación")]
         public int IdClasificacion { get; set; }
 
         //agregando relaciones entre tablas noticias -> clasificaciones
         [ForeignKey("IdClasificacion")]
-        public virtual Clasificaciones Clasificacion { get; set; }
+        public virtual Clasificaciones? Clasificacion { get; set; }
 
-        [Required]
-        public DateTime FechaIngreso { get; set; }
+        public DateTime? FechaIngreso { get; set; }
 
-        [Required]
-        public DateTime FechaActualizacion { get; set; }
+        public DateTime? FechaActualizacion { get; set; }
     }
 }

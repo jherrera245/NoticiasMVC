@@ -1,7 +1,7 @@
-﻿@model NoticiasMVC.Models.Categorias
+﻿@model NoticiasMVC.ViewModels.NoticiasView
 
 @{
-    ViewData["Title"] = "Crear Categorias";
+    ViewData["Title"] = "Crear Noticias";
 }
 
 <div class="row">
@@ -15,27 +15,43 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-edit"></i> Registro de Categorias
+                    <i class="fa fa-edit"></i> Registro de Noticias
                 </div>
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">
-                            <label class="form-label" asp-for="NombreCategoria"></label>
-                            <input asp-for="NombreCategoria" class="form-control"
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="form-label" asp-for="Noticias.TituloNoticia"></label>
+                            <input asp-for="Noticias.TituloNoticia" class="form-control"
                                    placeholder="Ingresa el nombre de la categoria" />
-                            <span class="text-danger" asp-validation-for="NombreCategoria"></span>
+                            <span class="text-danger" asp-validation-for="Noticias.TituloNoticia"></span>
                         </div>
 
-                        <div class="col-lg-6 col-sm-12">
-                            <label class="form-label" asp-for="ImagenCategoria"></label>
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="form-label" asp-for="Noticias.ImagenNoticia"></label>
                             <input type="file" name="files" id="uploadBox" class="form-control" />
                         </div>
 
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="form-label" asp-for="Noticias.IdCategoria"></label>
+                            <select asp-for="Noticias.IdCategoria" class="form-control" asp-items="@Model.CategoriasSelectList">
+                                <option disabled selected>Seleccionar Categoría</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="Noticias.IdCategoria"></span>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="form-label" asp-for="Noticias.IdClasificacion"></label>
+                            <select asp-for="Noticias.IdClasificacion" class="form-control" asp-items="@Model.ClasificacionesSelectList">
+                                <option disabled selected>Seleccionar Clasificación</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="Noticias.IdClasificacion"></span>
+                        </div>
+
                         <div class="col-12">
-                            <label class="form-label" asp-for="DescripcionCategoria"></label>
-                            <textarea asp-for="DescripcionCategoria" class="form-control" id="descripcion" rows="5"></textarea>
-                            <span class="text-danger" asp-validation-for="DescripcionCategoria"></span>
+                            <label class="form-label" asp-for="Noticias.DescripcionNoticia"></label>
+                            <textarea asp-for="Noticias.DescripcionNoticia" class="form-control" id="descripcion" rows="5"></textarea>
+                            <span class="text-danger" asp-validation-for="Noticias.DescripcionNoticia"></span>
                         </div>
                     </div>
                 </div>

@@ -1,14 +1,14 @@
-﻿@model IEnumerable<NoticiasMVC.Models.Categorias>
+﻿@model IEnumerable<NoticiasMVC.Models.Clasificaciones>
 
 @{
-    ViewData["Title"] = "Lista de Categorías";
+    ViewData["Title"] = "Lista de Clasificaciones";
 }
 
 <div class="row">
     <div class="col-12 mt-3">
         <h4>
             @ViewData["Title"]
-            <a class="btn btn-primary" asp-controller="Categorias" asp-action="Create">
+            <a class="btn btn-primary" asp-controller="Clasificaciones" asp-action="Create">
                 <i class="fa fa-pen"></i> Agregar
             </a>
         </h4>
@@ -29,28 +29,23 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Nombre</th>
-                                <th>Imagen</th>
                                 <th>Descripción</th>
                                 <th colspan="2">Opciones</th>
                             </tr>
-                            @foreach (var categoria in Model)
+                            @foreach (var clasificacion in Model)
                             {
                                 <tr>
-                                    <td>@categoria.IdCategoria</td>
-                                    <td>@categoria.NombreCategoria</td>
-                                    <td>
-                                        <img class="img-thumbnail" width="200px"
-                                             src="@WebConst.CategoriasPath/@categoria.ImagenCategoria">
-                                    </td>
-                                    <td>@Html.Raw(categoria.DescripcionCategoria)</td>
+                                    <td>@clasificacion.IdClasificacion</td>
+                                    <td>@clasificacion.NombreClasificacion</td>
+                                    <td>@Html.Raw(clasificacion.DescripcionClasificacion)</td>
                                     <td>
                                         <a class="btn btn-primary" asp-controller="Categorias"
-                                           asp-action="Edit" asp-route-Id="@categoria.IdCategoria">
+                                   asp-action="Edit" asp-route-Id="@clasificacion.IdClasificacion">
                                             <i class="fa fa-edit"></i> Editar
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" onclick="deleteCategoria(@categoria.IdCategoria);">
+                                        <a class="btn btn-danger" onclick="deleteClasificacion(@clasificacion.IdClasificacion);">
                                             <i class="fa fa-trash"></i> Eliminar
                                         </a>
                                     </td>
@@ -58,11 +53,12 @@
                             }
                         </table>
                     </div>
-                }else
+                }
+                else
                 {
                     <div class="alert alert-primary">
-                        No existen registros actuales de categorías
-                    </div>    
+                        No existen registros actuales de Clasificaciones
+                    </div>
                 }
             </div>
         </div>
@@ -72,9 +68,9 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
     <script>
-        const deleteCategoria = (Id) => {
+        const deleteClasificacion = (Id) => {
             Swal.fire({
-                title: 'Quieres borrar esta categoria?',
+                title: 'Quieres borrar esta clasificación?',
                 text: "Una vez borrada no podras recurperarla",
                 icon: 'warning',
                 showCancelButton: true,
