@@ -147,7 +147,7 @@ namespace NoticiasMVC.Controllers
                 return NotFound();
             }
            
-            string Upload = _webHostEnvironment + WebConst.CategoriasPath;
+            string Upload = _webHostEnvironment.WebRootPath + WebConst.CategoriasPath;
             var OldFile = Path.Combine(Upload, Categoria.ImagenCategoria);
             
             if (System.IO.File.Exists(OldFile))

@@ -1,0 +1,97 @@
+﻿@model NoticiasMVC.ViewModels.NoticiasView
+
+@{
+    ViewData["Title"] = "Editar Noticias";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h4>@ViewData["Title"]</h4>
+    </div>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="Noticias.IdNoticia" hidden />
+        <input asp-for="Noticias.ImagenNoticia" hidden />
+        <input asp-for="Noticias.FechaIngreso" hidden />
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-edit"></i> Actualización de Noticias
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="form-label" asp-for="Noticias.TituloNoticia"></label>
+                            <input asp-for="Noticias.TituloNoticia" class="form-control"
+                                   placeholder="Ingresa el nombre de la categoria" />
+                            <span class="text-danger" asp-validation-for="Noticias.TituloNoticia"></span>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="form-label" asp-for="Noticias.ImagenNoticia"></label>
+                            <input type="file" name="files" id="uploadBox" class="form-control" />
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="form-label" asp-for="Noticias.IdCategoria"></label>
+                            <select asp-for="Noticias.IdCategoria" class="form-control" asp-items="@Model.CategoriasSelectList">
+                                <option disabled selected>Seleccionar Categoría</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="Noticias.IdCategoria"></span>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="form-label" asp-for="Noticias.IdClasificacion"></label>
+                            <select asp-for="Noticias.IdClasificacion" class="form-control" asp-items="@Model.ClasificacionesSelectList">
+                                <option disabled selected>Seleccionar Clasificación</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="Noticias.IdClasificacion"></span>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label class="form-label" asp-for="Noticias.DescripcionNoticia"></label>
+                            <textarea asp-for="Noticias.DescripcionNoticia" class="form-control" id="descripcion" rows="5"></textarea>
+                            <span class="text-danger" asp-validation-for="Noticias.DescripcionNoticia"></span>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <label class="form-label">Imagen Actual</label>
+                            <img src="@WebConst.NoticiasPath/@Model.Noticias.ImagenNoticia"
+                                 style="width: 100%; border-radius: 5px; border: 1px solid #bbb" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-edit"></i> Actualizar
+                    </button>
+
+                    <a class="btn btn-danger" type="button" asp-action="Index">
+                        <i class="fa fa-rotate-back"></i> Cancelar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        tinymce.init({
+            selector: '#descripcion',
+            plugins: [
+                'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+                'alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+        });
+    </script>
+}

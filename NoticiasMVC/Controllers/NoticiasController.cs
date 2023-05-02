@@ -138,6 +138,103 @@ namespace NoticiasMVC.Controllers
             return View(AddNoticia);
         }
 
+        //Metodo HttpGet
+        //ruta -> Views/Noticias/Edit/{IdNoticia}
+        public IActionResult Edit(int? Id)
+        {
+            //verficamos que se paso el id por la url
+            if (Id == null || Id == 0) {
+                return NotFound();
+            }
 
+            //Consultamos el registro segun su ID
+            NoticiasView Noticia = new NoticiasView()
+            {
+                Noticias = _context.Noticias.Find(Id),
+                CategoriasSelectList = _context.Categorias.Select(
+                    i => new SelectListItem{
+                            Text = i.NombreCategoria,
+                            Value = i.IdCategoria.ToString()
+                        }
+                    ),
+                ClasificacionesSelectList = _context.Clasificaciones.Select(
+                    i => new SelectListItem
+                    {
+                        Text = i.NombreClasificacion,
+                        Value = i.IdClasificacion.ToString()
+                    }
+                )
+            };
+            //si no encuentra el registro
+            if (Noticia == null) {
+                return NotFound();
+            }
+            //Si el registro es encotrado pasamos el objeto a la vista
+            return View(Noticia);
+        }
+
+        //Metodo HttpPost
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(NoticiasView EditNoticia)
+        {
+            //verficamos que los datos se enviaron correctamente
+            if (ModelState.IsValid)
+            {
+                string SaveImage = SaveImageServer(true, EditNoticia.Noticias.ImagenNoticia);
+                //actualzamos el nombre de la imagen en el modelo
+                EditNoticia.Noticias.ImagenNoticia = SaveImage;
+                EditNoticia.Noticias.FechaActualizacion = DateTime.Now;
+                //guardando
+                _context.Noticias.Update(EditNoticia.Noticias);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            EditNoticia.CategoriasSelectList = _context.Categorias.Select(
+                i => new SelectListItem
+                {
+                    Text = i.NombreCategoria,
+                    Value = i.IdCategoria.ToString()
+                }
+            );
+
+            EditNoticia.ClasificacionesSelectList = _context.Clasificaciones.Select(
+                i => new SelectListItem
+                {
+                    Text = i.NombreClasificacion,
+                    Value = i.IdClasificacion.ToString()
+                }
+            );
+            return View(EditNoticia);
+        }
+
+        //Metodo HttpGet
+        public IActionResult Delete(int? Id)
+        {
+            if (Id == null || Id == 0)
+            {
+                return NotFound();
+            }
+
+            var Noticia = _context.Noticias.Find(Id);
+
+            if (Noticia == null)
+            {
+                return NotFound();
+            }
+           
+            string Upload = _webHostEnvironment.WebRootPath + WebConst.NoticiasPath;
+            var OldFile = Path.Combine(Upload, Noticia.ImagenNoticia);
+            
+            if (System.IO.File.Exists(OldFile))
+            {
+                System.IO.File.Delete(OldFile);
+            }
+
+            _context.Noticias.Remove(Noticia);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
