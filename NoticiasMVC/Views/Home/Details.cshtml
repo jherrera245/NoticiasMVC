@@ -1,0 +1,80 @@
+﻿@model NoticiasMVC.ViewModels.HomeView
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+
+    <div class="col-12">
+        <h4 class="text-center">Noticias por categorias</h4>  
+    </div>
+
+    @if (Model.Clasificaciones.Count() > 0)
+    {
+       <div class="col-12">
+            <button class="btn btn-outline-success filter-button"
+                    data-filter="all">
+                Todos
+            </button>
+            @foreach (var clasificacion in Model.Clasificaciones)
+            {
+                <button 
+                    class="btn btn-outline-success filter-button" 
+                    data-filter="@clasificacion.NombreClasificacion.Replace(' ','_')">
+                    @clasificacion.NombreClasificacion
+                </button>
+            }
+       </div>
+    }
+
+    <div class="col-12 mt-2">
+        <div class="row">
+            @if (Model.Noticias.Count() > 0)
+            {
+                @foreach (var noticias in Model.Noticias)
+                {
+                    <div class="col-lg-4 col-sm-12 mb-3 filter @noticias.Clasificacion.NombreClasificacion.Replace(" ", "_")">
+                        <!--Card categoria-->
+                        <div class="card">
+                            <img class="card-img" src="@WebConst.NoticiasPath/@noticias.ImagenNoticia" />
+                            <div class="card-body">
+                                <h4 class="card-title">@noticias.TituloNoticia</h4>
+                                <p>@Html.Raw(noticias.DescripcionNoticia)</p>
+                                <p class="text-secondary fw-bold">Fecha publicación @noticias.FechaIngreso</p>
+                                <p class="text-secondary fw-bold">Fecha ultima modificación @noticias.FechaActualizacion</p>
+                                <span class="badge bg-primary">@noticias.Clasificacion.NombreClasificacion</span>
+                            </div>
+                        </div>
+                        <!--Fin Card categoria-->
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="alert alert-success">
+                        No hay noticias disponible de esta categoría
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        $(document).ready(function () {
+            $(".filter-button").click(function() {
+                let value = $(this).attr("data-filter");
+
+                if (value == 'all') {
+                    $(".filter").show("1000");
+                } else {
+                    $(".filter").not("." + value).hide('3000');
+                    $(".filter").filter("." + value).show('3000');
+                }
+
+            });
+        });
+    </script>
+}
