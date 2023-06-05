@@ -1,0 +1,102 @@
+﻿@model NoticiasMVC.ViewModels.DashboardView
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h3 class="mt-4">Dashboard</h3>
+
+<div class="row mb-3">
+    <!--tarjeta total de noticias-->
+    <div class="col-lg-3 col-sm-12">
+        <div class="row p-2">
+            <div class="col-12 shadow bg-primary rounded-3">
+                <div class="row align-items-center">
+                    <div class="col-3 p-3 text-white">
+                        <i class="fa-solid fa-newspaper fs-1 opacity-75"></i>
+                    </div>
+
+                    <div class="col-9 p-3 text-white fs-4">
+                        <div class="text-xs fw-bold text-uppercase mb-1">
+                            Noticias
+                        </div>
+
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @Model.TotalNoticias
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--tarjeta total categorías-->
+    <div class="col-lg-3 col-sm-12">
+        <div class="row p-2">
+            <div class="col-12 shadow bg-success rounded-3">
+                <div class="row align-items-center">
+                    <div class="col-3 p-3 text-white">
+                        <i class="fa-solid fa-list fs-1 opacity-75"></i>
+                    </div>
+
+                    <div class="col-9 p-3 text-white fs-4">
+                        <div class="text-xs fw-bold text-uppercase mb-1">
+                            Categorías
+                        </div>
+
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @Model.TotalCategorias
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--tarjeta total clasificaciones -->
+    <div class="col-lg-3 col-sm-12">
+        <div class="row p-2">
+            <div class="col-12 shadow bg-danger rounded-3">
+                <div class="row align-items-center">
+                    <div class="col-3 p-3 text-white">
+                        <i class="fa-solid fa-globe fs-1 opacity-75"></i>
+                    </div>
+                    <div class="col-9 p-3 text-white fs-4">
+                        <div class="text-xs fw-bold text-uppercase mb-1">
+                            Clasificaciones
+                        </div>
+
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @Model.TotalClasificaciones
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--tarjeta total usuarios-->
+    <div class="col-lg-3 col-sm-12">
+        <div class="row p-2">
+            <div class="col-12 shadow bg-secondary rounded-3">
+                <div class="row align-items-center">
+                    <div class="col-3 p-3 text-white">
+                        <i class="fa-solid fa-users fs-1 opacity-75"></i>
+                    </div>
+
+                    <div class="col-9 p-3 text-white fs-4">
+                        <div class="text-xs fw-bold text-uppercase mb-1">
+                            Usuarios
+                        </div>
+
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @Model.TotalUsuarios
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--Final de tarjetas con totales-->
