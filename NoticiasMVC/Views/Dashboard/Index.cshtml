@@ -100,3 +100,157 @@
 
 </div>
 <!--Final de tarjetas con totales-->
+
+<div class="row">
+    <div class="col-lg-6 col-xs-12">
+        <!-- Area Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 fw-bold text-primary">Noticias por Categoría</h6>
+            </div>
+            <div class="card-body">
+                <canvas width="100" height="100" id="graficaCategorias"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-12">
+        <!-- Area Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 fw-bold text-primary">Noticias por Clasificación</h6>
+            </div>
+            <div class="card-body">
+                <canvas width="100" height="100" id="graficaClasificaciones"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/chart.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            graficaCategorias();
+            graficaClasificaciones();
+        });
+
+        const graficaCategorias = () => {
+            $.ajax({
+                url: '/dashboard/GraficaCategorias',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    const LienzoGrafica = document.getElementById('graficaCategorias');
+
+                    const dataJson = data;
+                    let graficaLabel = [];
+                    let total = [];
+                    let colorPastel = []
+                    let colorBordePastel = [];
+
+                    dataJson.forEach(categoria => {
+                        let color1 = Math.floor(Math.random() * 54) + 1;
+                        let color2 = Math.floor(Math.random() * 162) + 1;
+                        let color3 = Math.floor(Math.random() * 255) + 1;
+
+                        graficaLabel.push(categoria.categoria);
+                        total.push(categoria.total);
+                        colorPastel.push('rgba(' + color1 + ', ' + color2 + ', ' + color3 + ', 0.2)');
+                        colorBordePastel.push('rgba(' + color1 + ', ' + color2 + ', ' + color3 + ', 1)');
+                    });
+
+                    const grafica = {
+                        label: 'Top 10 de Noticias por categoria',
+                        data: total,
+                        backgroundColor: colorPastel,
+                        borderColor: colorBordePastel,
+                        borderWidth: 1,
+                    };
+
+                    new Chart(LienzoGrafica, {
+                        type: 'doughnut',// Tipo de gráfica
+                        data: {
+                            labels: graficaLabel,
+                            datasets: [
+                                grafica,
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    display: false,
+                                },
+                                x: {
+                                    display: false,
+                                },
+                            },
+                        }
+                    });
+                },
+                error: function () {
+                    console.log('Error al recibir los datos')
+                }
+            });
+        }
+
+        const graficaClasificaciones = () => {
+            $.ajax({
+                url: '/dashboard/GraficaClasificaciones',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    const LienzoGrafica = document.getElementById('graficaClasificaciones');
+
+                    const dataJson = data;
+                    let graficaLabel = [];
+                    let total = [];
+                    let colorPastel = []
+                    let colorBordePastel = [];
+
+                    dataJson.forEach(clasificacion => {
+                        let color1 = Math.floor(Math.random() * 54) + 1;
+                        let color2 = Math.floor(Math.random() * 162) + 1;
+                        let color3 = Math.floor(Math.random() * 255) + 1;
+
+                        graficaLabel.push(clasificacion.clasificacion);
+                        total.push(clasificacion.total);
+                        colorPastel.push('rgba(' + color1 + ', ' + color2 + ', ' + color3 + ', 0.2)');
+                        colorBordePastel.push('rgba(' + color1 + ', ' + color2 + ', ' + color3 + ', 1)');
+                    });
+
+                    const Grafica = {
+                        label: 'Top 10 Noticias Por Clasificacón',
+                        data: total,
+                        backgroundColor: colorPastel,
+                        borderColor: colorBordePastel,
+                        borderWidth: 1,
+                    };
+
+
+                    new Chart(LienzoGrafica, {
+                        type: 'bar',// Tipo de gráfica
+                        data: {
+                            labels: graficaLabel,
+                            datasets: [
+                                Grafica,
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                },
+                            },
+                        }
+                    });
+                },
+                error: function () {
+                    console.log('Error al recibir los datos')
+                }
+            });
+        }
+
+    </script>
+}

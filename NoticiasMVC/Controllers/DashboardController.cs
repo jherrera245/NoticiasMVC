@@ -31,6 +31,7 @@ namespace NoticiasMVC.Controllers
             return View(Totales);
         }
 
+
         //noticias por categoria
         [HttpGet]
         public ActionResult GraficaCategorias()
@@ -44,7 +45,7 @@ namespace NoticiasMVC.Controllers
                 select new
                 {
                     Categoria = g.Select(x => x.NombreCategoria).First(),
-                    Total = g.Select(x => x.IdCategoria).Count()    
+                    Total = g.Select(x => x.IdCategoria).Count()
                 }
             ).Take(10);
 
@@ -64,13 +65,12 @@ namespace NoticiasMVC.Controllers
                 orderby g.Select(x => x.IdClasificacion).Count() descending
                 select new
                 {
-                    Categoria = g.Select(x => x.NombreClasificacion).First(),
+                    Clasificacion = g.Select(x => x.NombreClasificacion).First(),
                     Total = g.Select(x => x.IdClasificacion).Count()
                 }
             ).Take(10);
 
             return Json(total);
         }
-
     }
 }
